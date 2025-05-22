@@ -2,9 +2,9 @@ import smtplib
 from email.message import EmailMessage
 
 def send_report():
-    sender_email = "anusha82003@gmail.com"
-    sender_password = "tiwf xwgg zsdm pnja"  # Use your app password here
-    receiver_email = "jenasrox10@gmail.com"
+    sender_email = "anu123@example.com"
+    sender_password = "...................."  # Use your app password here
+    receiver_email = "xyzz0@example.com"
 
     subject = "Attendance Report"
     body = "Please find the attached attendance report."

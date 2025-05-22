@@ -1,6 +1,6 @@
-Student Attendance System Using Face Recognition and 5G Camera
+# Student Attendance System Using Face Recognition and 5G Camera
 
-This project implements a face recognition–based attendance system using Python and OpenCV, with support for integrating a 5G camera for video streaming.
+## This project implements a face recognition–based attendance system using Python and OpenCV, with support for integrating a 5G camera for video streaming.
 
 ## Features
 1) Capture face images of students

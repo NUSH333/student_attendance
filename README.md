@@ -43,7 +43,7 @@ This project supports integrating a 5G camera for capturing video streams instea
 ## How to use a 5G Camera stream
 Replace the default cv2.VideoCapture(0) with the 5G camera's video stream URL.
 
-Note:
+### Note:
 During recognition, press q to quit manually if needed.
 Attendance CSV is saved as attendance.csv.
 Use Gmail app password for email functionality if 2FA is enabled.

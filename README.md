@@ -9,11 +9,11 @@
 4) Save attendance to CSV
 5) Optionally email attendance report
 
-Setup
+### Setup
 ```Install required libraries:
 pip install opencv-python numpy pandas
 ```
-Usage
+### Usage
 1. Capture Images
 Run the capture script:
 ```

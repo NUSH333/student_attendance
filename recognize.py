@@ -3,6 +3,7 @@ import numpy as np
 import os
 import pandas as pd
 from datetime import datetime
+import time
 
 def recognize():
     recognizer = cv2.face.LBPHFaceRecognizer_create()
@@ -21,7 +22,9 @@ def recognize():
     cap = cv2.VideoCapture(0)
     attendance = {}
 
-    print("Starting recognition.")
+    print("Starting recognition...")
+    start_time = time.time()
+    timeout = 10  # seconds of only unknowns before quitting
 
     while True:
         ret, frame = cap.read()
@@ -31,16 +34,21 @@ def recognize():
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         faces = detector.detectMultiScale(gray, 1.2, 5)
 
-        recognized_face = False  # flag to detect if someone recognized this frame
+        recognized_face = False
 
         for (x, y, w, h) in faces:
             face_img = gray[y:y+h, x:x+w]
             id_, conf = recognizer.predict(face_img)
+
             if conf < 70:
                 name = student_info.get(id_, "Unknown")
                 label = f"{name} - {id_}"
-                attendance[id_] = {"name": name, "time": datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-                recognized_face = True  # face recognized confidently
+                attendance[id_] = {
+                    "name": name,
+                    "time": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                }
+                recognized_face = True
+                break  # stop once we recognize one person
             else:
                 label = "Unknown"
 
@@ -49,12 +57,17 @@ def recognize():
 
         cv2.imshow("Recognize", frame)
 
-        # If recognized a face, break immediately to save attendance and close
+        # Exit if known face recognized
         if recognized_face:
             print(f"Recognized {name}, attendance marked.")
             break
 
-        # fallback quit by 'q' key if no recognition happens
+        # Exit if only unknowns seen for too long
+        if time.time() - start_time > timeout:
+            print("Only unknown faces detected for 10 seconds. Exiting.")
+            break
+
+        # Optional manual quit
         if cv2.waitKey(1) & 0xFF == ord('q'):
             print("Manual quit.")
             break
